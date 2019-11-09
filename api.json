@@ -1,3 +1,106 @@
+// post recommend
+{
+    "forWhat": "birthday", // anniversary,houses,celebrate,general
+    "price" : [100, 1000],
+    "sex": "male", //female
+    "age": 10, //10~50
+    "job": "teenager", //university_student, worker, jobless
+    "favor": [
+        "exercise",
+        "beauty"
+    ], //healthcare , beauty, game, it, fashion
+}
+//get recommend
+{
+    "product": [
+        {
+            "name": "diffuser",
+            "comment": [
+                {
+                    "content": "asadfsafsa",
+                    "like": 123,
+                    "id": 1
+                },
+                {
+                    "content": "asadfsafsa",
+                    "like": 123,
+                    "id": 1
+                }
+            ]
+        },
+        {
+            "name": "asdfsadf",
+            "comment": {
+                "content": "asadfsafsa",
+                "like": 123,
+                "id": 1
+            }
+        }
+    ]
+}
+//post recommend
+{
+    "sex": "man",
+    "age": "10",
+    "favor": [
+        "운동"
+    ],
+    "job": [
+        "student",
+        "worker",
+        "artist"
+    ],
+}
+//get posts
+{
+    "id": 123,
+    "title": "ad",
+    "created_date": "1",
+    "category": "30대 남성",
+    "product": "",
+}
+//post post
+{
+    "title": "asfddsaf",
+    "age": [
+        "20대 여성",
+        "30대 여성"
+    ],
+    "contents": "fasda",
+    "product": [
+        "지갑",
+        "fdasfs",
+        "asdfsdaf"
+    ],
+    "forWhat": [
+        "생일",
+        "집들이",
+        "용돈",
+        "기념일",
+        "축하선물",
+        "일상"
+    ]
+}
+//get comment
+{
+    "content": "Afadfsadfsda",
+    "like": 1234123,
+    "created_date": "20203",
+}
+//post comment
+{
+    "content": "afafdsfdsf",
+    "postId": 123
+}
+
+
+
+
+
+
+
+
+
 //get recommend
 {
     "product": [

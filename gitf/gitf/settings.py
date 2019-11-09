@@ -129,3 +129,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+# CSRF_COOKIE_SECURE = False

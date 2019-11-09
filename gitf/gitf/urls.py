@@ -81,6 +81,8 @@ router.register(r'items', views.ItemViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test', views.getRecommendTest),
+    path('getAllProducts', views.getAllProducts),
+    path('api/recommend', views.recommend),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
