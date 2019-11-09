@@ -1,1 +1,1 @@
-web: gunicorn gitf.wsgi --log-file -
+web: gunicorn gitf.wsgi --log-file -b xx.xxx.xxx.xx:8000
