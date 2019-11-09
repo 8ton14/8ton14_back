@@ -52,6 +52,7 @@ def getAllProducts(request):
 @csrf_exempt
 def recommend(request):
     if request.method == "POST":
+        print(request.body)
         data = json.loads(request.body)
         print(data)
         Items = Item.objects.all()
