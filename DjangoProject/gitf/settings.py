@@ -25,7 +25,7 @@ SECRET_KEY = '9tfn9=%6*pvzhklmnj7cvtavvoi=^mfeb8mkt3mw-_s4)7ildc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -135,3 +135,7 @@ REST_FRAMEWORK = {
 # Media files - 업로드를 하는 URL과 디렉토리 설정
 MEDIA_URL = '/files/' # 업로드 할 경로
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads') #로컬 디렉토리 어디에 저장할 것인지
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
