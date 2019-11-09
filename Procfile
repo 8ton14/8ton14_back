@@ -1,1 +1,1 @@
-web: gunicorn gitf.wsgi
+web: gunicorn gitf.wsgi --debug --log-level debug
