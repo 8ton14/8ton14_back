@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+검색
+{% endblock %}
+{% block content %}
+<script>
+    $(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 110,
+            values: [0, 100],
+            slide: function (event, ui) {
+                $("#amount").val(ui.values[0] + "만원 - " + ui.values[1] + "만원");
+                document.getElementById('start').value = ui.values[0];
+                document.getElementById('end').value = ui.values[1];
+            }
+        });
+        $("#amount").val($("#slider-range").slider("values", 0) +
+            "만원 - " + $("#slider-range").slider("values", 1) + "만원");
+    });
+</script>
+<p>
+    <label for="amount">가격대</label>
+    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+
+<div id="slider-range"></div>
+<form action="" method="post">
+    <input type="hidden" name="start" id="start" value="">
+    <input type="hidden" name="end" id="end" value="">
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="radio" aria-label="Radio button for following text input">
+          </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Text input with radio button">
+      </div>
+
+</form>
+
+{% endblock %}
