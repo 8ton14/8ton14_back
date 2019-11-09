@@ -82,8 +82,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('recommend', views.recommendView),
     # path('recommendq', views.recommendQuestion),
-    path('test', views.getRecommendTest),
-    path('getAllProducts', views.getAllProducts),
+    # path('test', views.getRecommendTest),
+    # path('getAllProducts', views.getAllProducts),
     path('api/recommend', views.recommend),
     path('api/getPosts', views.getPosts),
     path('api/getPost', views.getOnePost),
@@ -92,7 +92,7 @@ urlpatterns = [
     path('api/getComments', views.getCommnets),
     path('api/writeComment', views.writeComment),
     # path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 from django.conf import settings
 from django.conf.urls.static import static
