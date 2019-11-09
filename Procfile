@@ -1,1 +1,1 @@
-web: gunicorn gift.wsgi --log-file -
+web: gunicorn gitf.wsgi --log-file -
