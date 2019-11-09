@@ -1,86 +1,127 @@
-// post recommend
+// 추천 요청 json
 {
-    "forWhat": "birthday", // anniversary,houses,celebrate,general
-    "price" : [100, 1000],
-    "sex": "male", //female
-    "age": 10, //10~50
-    "job": "teenager", //university_student, worker, jobless
+    "forWhat": "birthday",
+    "sex": "male",
+    "age": 10,
+    "job": "teenager",
     "favor": [
         "exercise",
         "beauty"
-    ], //healthcare , beauty, game, it, fashion
+    ],
+    "price": [
+        0,
+        200000
+    ]
 }
-//get recommend
-{
-    "product": [
-        {
-            "name": "diffuser",
-            "comment": [
-                {
-                    "content": "asadfsafsa",
-                    "like": 123,
-                    "id": 1
-                },
-                {
-                    "content": "asadfsafsa",
-                    "like": 123,
-                    "id": 1
-                }
-            ]
-        },
-        {
-            "name": "asdfsadf",
-            "comment": {
-                "content": "asadfsafsa",
-                "like": 123,
-                "id": 1
+
+// 추천 결과 json
+[
+    {
+        "name": "에어팟",
+        "desc": "요즘 인싸아이템!! 지하철에서 에어팟을 안낀 사람이 없다!! 상대가 에이팟이 없다면!",
+        "comment": [],
+        "weight": 0.85
+    },
+    {
+        "name": "지갑",
+        "desc": "설명",
+        "comment": [
+            {
+                "content": "남자면 몽블랑정도가 적당하지않을까요?",
+                "likes": 2,
+                "postID": 1
             }
-        }
+        ],
+        "weight": 0.8
+    },
+    {
+        "name": "이모티콘",
+        "desc": "선물주어야하지만 친하지않거나 가볍게 선물할때",
+        "comment": [],
+        "weight": 0.78
+    }
+]
+//============
+
+
+
+
+
+//get posts 결과
+[
+    {
+        "id": 1,
+        "title": "친구 생일선물로 지갑 어떤가요?",
+        "content": "친구 생일선물로 40만원짜리 지갑 선물해려하는데요.\r\n남자 지갑 브랜드 추천해주세요",
+        "tags": [
+            "20대",
+            "남자",
+            "지갑",
+            "친구",
+            "생일"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "취업기념 부모님 선물",
+        "content": "이번에 취업해서 첫월급을 받았습니다. 첫월급인만큼 부모님께 통크게 선물하나 해드릴까하는데요.\r\n200만원짜리 안마의자가 좋을까요? 아니면 다른 추천하시는게 있나요?",
+        "tags": [
+            "부모님",
+            " 취업",
+            " 선물",
+            " 안마의자"
+        ]
+    }
+]
+
+//============
+
+
+
+//get posts 태그로 검색 요청
+{
+    "tags": [
+        "20대",
+        "생일"
     ]
 }
-//post recommend
+
+
+//============
+
+//write post 요청
 {
-    "sex": "man",
-    "age": "10",
-    "favor": [
-        "운동"
-    ],
-    "job": [
-        "student",
-        "worker",
-        "artist"
-    ],
-}
-//get posts
-{
-    "id": 123,
-    "title": "ad",
-    "created_date": "1",
-    "category": "30대 남성",
-    "product": "",
-}
-//post post
-{
-    "title": "asfddsaf",
-    "age": [
-        "20대 여성",
-        "30대 여성"
-    ],
-    "contents": "fasda",
-    "product": [
-        "지갑",
-        "fdasfs",
-        "asdfsdaf"
-    ],
-    "forWhat": [
-        "생일",
-        "집들이",
-        "용돈",
-        "기념일",
-        "축하선물",
-        "일상"
+    "title": "20대 여사친 생일선물",
+    "content": "친구 생일선물을 사주려고하는데 디퓨저랑 핸드크림중에 뭐가 좋을까요? 핸드크림이 무난할것같은데 저렴하지않은걸로 사주고싶은데 부담스럽지 않은걸로 추천해주세요",
+    "tags": [
+        "20대",
+        "대학생",
+        "여성",
+        "생일"
     ]
 }
+
+
+//============
+
+//get tags 리턴
+[
+    "20대",
+    "생일",
+    "대학생",
+    "여성",
+    "남자",
+    "지갑",
+    "친구",
+    "부모님",
+    "취업",
+    "선물",
+    "안마의자"
+]
+
+
+
+
 //get comment
 {
     "content": "Afadfsadfsda",

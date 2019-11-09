@@ -12,39 +12,7 @@ import json
 
 from django.views.decorators.csrf import csrf_exempt
 from operator import itemgetter
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
-
-class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
-    # queryset = Comment.objects.all()
-    serializer_class = ItemSerializer
-
-
-class SettingAPIView(APIView):
-
-    renderer_classes = (JSONRenderer, )
-
-    def get(self, request, username):
-        user=get_object_or_404(MyUser, username=username)
-        content = {'user': user.username, 'greeting': "안녕"}
-        return Response(content)
-
-
+import operator
 
 def getRecommendTest(request):
     Items = Item.objects.all()
@@ -87,18 +55,19 @@ def recommend(request):
         Items = Item.objects.all()
         weights = []
         for product in Items.values():
-            this_product = dict()
-            this_value = 0
-            this_value += product[data['forWhat']]
-            this_value += product[data['sex']]
-            this_value += product['age' + str(data['age'])]
-            this_value += product[data['job']]
-            for favor in data['favor']:
-                this_value += product[favor]
-            this_product['id'] = product['id']
-            this_product['weight'] = this_value/(4 + len(data['favor']))
-            weights.append(this_product)
-        # print(weights)
+            if data['price'][0] <= product['common_price'] <= data['price'][1]:
+                this_product = dict()
+                this_value = 0
+                this_value += product[data['forWhat']]
+                this_value += product[data['sex']]
+                this_value += product['age' + str(data['age'])]
+                this_value += product[data['job']]
+                for favor in data['favor']:
+                    this_value += product[favor]
+                this_product['id'] = product['id']
+                this_product['weight'] = this_value/(4 + len(data['favor']))
+                
+                weights.append(this_product)
         
         ranked_product = sorted(weights, key=itemgetter('weight', 'id'), reverse=True)[:3]
         products = []
@@ -107,6 +76,7 @@ def recommend(request):
             product = dict()
             product['name'] = product_object['name']
             product['desc'] = product_object['desc']
+            product['common_price'] = product_object['common_price']
             comment = []
             Post_qs = Post.objects.filter(tags__icontains=product['name'])
             for j in Post_qs.values():      ## 상품명이 태그로 들어간 글들에서
@@ -124,3 +94,86 @@ def recommend(request):
         return HttpResponse(data)
     else:
         return HttpResponse("not post")
+
+
+
+@csrf_exempt
+def getPosts(request):
+    if request.method == "GET": # 그냥 글 가져오기
+        Posts = Post.objects.all()
+
+        result = []
+        for post in Posts.values():
+            this_post = dict()
+            this_post['id'] = post['id']
+            this_post['title'] = post['title']
+            this_post['content'] = post['content']
+            this_post['tags'] = post['tags'].split(',')
+            result.append(this_post)
+        data = json.dumps(result, ensure_ascii = False)
+        return HttpResponse(data)
+    elif request.method == "POST": # 태그로 글검색
+        tags = json.loads(request.body)['tags']
+        Posts = Post.objects.all()
+
+        result = []
+        for post in Posts.values():
+            this_post = dict()
+            this_post['id'] = post['id']
+            this_post['title'] = post['title']
+            this_post['content'] = post['content']
+            this_post['tags'] = post['tags'].split(',')
+            this_post['count'] = 0
+            for i in tags:
+                if i in this_post['tags']:
+                    this_post['count'] += 1
+            result.append(this_post)
+        
+        result = sorted(result, key=itemgetter('count', 'id'), reverse=True)
+        last = 0
+        for i in result:
+            if i['count'] == 0:
+                break
+            else:
+                del i['count']
+                last += 1
+        data = json.dumps(result[:last], ensure_ascii = False)
+        return HttpResponse(data)
+    else:
+        return HttpResponse("에러")
+
+
+@csrf_exempt
+def writePost(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        title = data['title']
+        content = data['content']
+        tags = ""
+        for i in data['tags']:
+            tags += i + ','
+        
+        Post(title=title, content=content, tags=tags[:-1]).save()
+        return HttpResponse("OK")
+    else:
+        return HttpResponse("not Post")
+
+
+def getTags(request):
+    if request.method == "GET":
+        Posts = Post.objects.all()
+
+        result = []
+        tags = dict()
+        for post in Posts.values():
+            this_tags = post['tags'].split(',')
+            for i in this_tags:
+                count = tags.get(i,0)
+                tags[i] = count + 1
+        
+        result = sorted(tags.items(), key=operator.itemgetter(1), reverse=True)
+        result = [i[0].strip() for i in result]
+        data = json.dumps(result, ensure_ascii = False)
+        return HttpResponse(data)
+    else:
+        return HttpResponse("not GET")
