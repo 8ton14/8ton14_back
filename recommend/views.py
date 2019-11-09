@@ -150,7 +150,8 @@ def getPosts(request):
 def getOnePost(request):
     if request.method == "POST":
         postId = json.loads(request.body)['postId']
-        post = Post.objects.filter(pk=postId).values()[0]
+        print(postId)
+        post = Post.objects.filter(pk=int(postId)).values()[0]
         
         this_post = dict()
         this_post['id'] = post['id']
