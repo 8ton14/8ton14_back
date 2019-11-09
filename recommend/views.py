@@ -53,6 +53,7 @@ def getAllProducts(request):
 def recommend(request):
     if request.method == "POST":
         data = json.loads(request.body)
+        print(data)
         Items = Item.objects.all()
         weights = []
         for product in Items.values():
