@@ -1,1 +1,1 @@
-web: gunicorn DjangoProject.gift.wsgi --log-file -
+web: gunicorn gift.wsgi --log-file -
